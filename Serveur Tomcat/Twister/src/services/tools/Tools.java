@@ -2,6 +2,7 @@ package services.tools;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Random;
 
 public class Tools {
@@ -22,4 +23,9 @@ public class Tools {
 		return calendar.getTime();
 	}
 	
+	public static Date getDate(String date) {
+		/*format DD/MM/AAAA*/
+		String[] dateSep = date.split("/");
+		return new Date(Integer.parseInt(dateSep[2])-1900,Integer.parseInt(dateSep[1])-1,Integer.parseInt(dateSep[0]));
+	}
 }

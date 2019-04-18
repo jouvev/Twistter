@@ -158,7 +158,7 @@ class ListeFriends extends React.Component{
 		return (
 			<div className="styleDeBase listeFriends">
 				{error}
-				<p className="titre">{this.props.infos.username===this.props.username ? 'Mes Amis :' : 'Ses Amis :'}</p>
+				<p >{this.props.infos.username===this.props.username ? 'Mes Amis :' : 'Ses Amis :'}</p>
 				{this.state.listeFriends.map((username, id) => <Friend key={id} username={username} setProfil={this.props.setProfil} />)}
 			</div>
 		);

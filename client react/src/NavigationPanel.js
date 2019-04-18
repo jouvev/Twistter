@@ -6,8 +6,12 @@ export default class NavigationPanel extends React.Component{
   	render(){
 		let contenu;
 		let menu;
+		let logo;
         //s'il n'est pas connecté
 		if(this.props.isConnected===false){
+			logo=(
+				<img className="logo" src="/logo.png" alt="" onClick={() => this.props.logout()}/>
+			);
 		  	contenu = (
 				<div>
 			  		<button className="button buttonNavPanel" onClick={()=>this.props.logout()}>Log in</button>
@@ -16,12 +20,15 @@ export default class NavigationPanel extends React.Component{
 		}
         //s'il est connecté
 		else{
+			logo=(
+				<img className="logo" src="/logo.png" alt="" onClick={() => this.props.accueil()}/>
+			);
 		    contenu = (
 				<div>
 			   		<button className="button buttonNavPanel" onClick={()=>this.props.logout()}>Log Out</button>
 			   	</div>
 		   	);
-			menu = <Menu accueil={this.props.accueil} setProfil={this.props.setProfil} search={this.props.search} />;
+			menu = <Menu accueil={this.props.accueil} setProfil={this.props.setProfil} search={this.props.search} searchavance={this.props.searchavance}/>;
 		}
 
 		if(this.props.page==="login"){
@@ -34,7 +41,7 @@ export default class NavigationPanel extends React.Component{
 
 		return (
 			<nav className="navPanel">
-				<img className="logo" src="/logo.png" alt="" />
+				{logo}
 				{menu}
 				{contenu}
 			</nav>
@@ -51,6 +58,7 @@ class Menu extends React.Component{
 				<li className="separator"></li>
 				<li className="item" onClick={() => this.props.setProfil()}>Profil</li>
 				</ul>
+				<span className="rechercheAvanceButton" description="Recherche Avancée"><img  className="iconButton" src="loupe.png" onClick={() => this.props.searchavance()} alt=""/></span>
 				<SearchBar search={this.props.search}/>
 			</div>
 		);
