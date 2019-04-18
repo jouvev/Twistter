@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app>
+  
+  
+  <display-name>Twister</display-name>
+  
+  
+  <servlet>
+    <servlet-name>CreateUser</servlet-name>
+    <servlet-class>services.servlets.CreateUser</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteUser</servlet-name>
+    <servlet-class>services.servlets.DeleteUser</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetUser</servlet-name>
+    <servlet-class>services.servlets.GetUser</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SearchUser</servlet-name>
+    <servlet-class>services.servlets.SearchUser</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>StatsUser</servlet-name>
+    <servlet-class>services.servlets.StatsUser</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>services.servlets.Login</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>services.servlets.Logout</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddFriend</servlet-name>
+    <servlet-class>services.servlets.AddFriend</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteFriend</servlet-name>
+    <servlet-class>services.servlets.DeleteFriend</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ListFriends</servlet-name>
+    <servlet-class>services.servlets.ListFriends</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddMessage</servlet-name>
+    <servlet-class>services.servlets.AddMessage</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteMessage</servlet-name>
+    <servlet-class>services.servlets.DeleteMessage</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ListMessages</servlet-name>
+    <servlet-class>services.servlets.ListMessages</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>LikeMessage</servlet-name>
+    <servlet-class>services.servlets.LikeMessage</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SearchMessage</servlet-name>
+    <servlet-class>services.servlets.SearchMessage</servlet-class>
+  </servlet>
+  
+  
+  <servlet-mapping>
+    <servlet-name>CreateUser</servlet-name>
+    <url-pattern>/user/create</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteUser</servlet-name>
+    <url-pattern>/user/delete</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetUser</servlet-name>
+    <url-pattern>/user/get</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SearchUser</servlet-name>
+    <url-pattern>/user/search</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>StatsUser</servlet-name>
+    <url-pattern>/user/stats</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/authentification/login</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/authentification/logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddFriend</servlet-name>
+    <url-pattern>/friend/add</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteFriend</servlet-name>
+    <url-pattern>/friend/delete</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ListFriends</servlet-name>
+    <url-pattern>/friend/list</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddMessage</servlet-name>
+    <url-pattern>/message/add</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteMessage</servlet-name>
+    <url-pattern>/message/delete</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ListMessages</servlet-name>
+    <url-pattern>/message/list</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LikeMessage</servlet-name>
+    <url-pattern>/message/like</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SearchMessage</servlet-name>
+    <url-pattern>/message/search</url-pattern>
+  </servlet-mapping>
+
+
+  <filter>
+    <filter-name>CorsFilter</filter-name>
+    <filter-class>services.tools.CORSFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+</web-app>

@@ -1,0 +1,503 @@
+/*###############################GENERAL#############################*/
+*{
+	font-family: 'Roboto', sans-serif;
+	color: #2F375C;
+}
+
+body{
+	background-color:#e6ecf0;
+}
+/*##################################################################*/
+
+/*###############################LIEN###############################*/
+.link, .link:visited{
+	color: #264A9C;
+	display: inline-block;
+	position: relative;
+	margin:0px;
+}
+.link:hover{
+	cursor:pointer;
+}
+
+/*pour animation*/
+.link:hover:before {
+	width:100%;
+}
+.link:before {
+	bottom: 0;
+	left:0;
+	content: "";
+	height: 1px;
+	position: absolute;
+	background: #264A9C;
+	transition: width 0.5s ease 0s;
+	width: 0;
+}
+/*###########################################################################*/
+
+/*########################FORMULAIRE##########################################*/
+form{
+	display:inline-block;
+
+	background-color:#fff;
+
+	padding: 10px;
+	padding-top:20px;
+
+	box-shadow:10px 10px 5px #C0C0C0;
+	border-radius:20px;
+}
+
+.formSearch{
+	background-color:none;
+	padding:0px;
+	margin:5px 0px 5px 0px;
+	box-shadow:none;
+	text-align:right;
+	width:310px;
+}
+
+.formTweeste{
+	width:758px;
+	background-color:none;
+	box-shadow:none;
+	margin:0px 10px 0px 15px;
+	padding:0;
+	text-align:left;
+}
+
+legend{
+	color:#264A9C;
+	font-weight:550;
+	letter-spacing:0.5px;
+}
+
+fieldset {
+	padding:5px 20px 5px 20px;
+	margin-bottom:10px;
+	border:0px;
+}
+
+.containerPost .formTweeste{
+	width:95%;
+	margin:0px;
+	padding:0px 10px 0px 15px;
+}
+/*###########################################################################*/
+
+/*######################################CHAMPS################################*/
+.champtext{
+	width: 350px;
+	height: 31px;
+
+	background-color:#fff;
+
+	margin-bottom:8px;
+	padding-left:5px;
+
+	border:1px solid #fff;
+	border-bottom: 1px solid #264A9C;
+	border-right:1px solid #C0C0C0;
+
+	color: #2F375C;
+	font-size: 18px;
+
+	box-shadow:1px 2px 2px #C0C0C0 inset;
+	border-radius:5px;
+}
+
+/*pour animation*/
+.champtext:focus{
+	border:1px solid #264A9C;
+}
+
+.champtextarea{
+	width:610px;
+	height:19px;
+
+	padding:8px;
+
+	font-size:16px;
+	resize:none;
+
+	transition: height 0.5s ease 0s;
+}
+
+/*pour animation*/
+.champtextarea:focus{
+    height:82px;
+    border-color:#264A9C;
+}
+
+.champtextarea:not(:empty){
+	height:82px;
+}
+
+.champSearch {
+	margin:0px;
+	width:125px;
+	transition: width 0.5s ease 0s;
+}
+/*pour animation*/
+.champSearch:hover ,.champSearch:focus{
+	width:295px;
+}
+
+.champGrandeTaille{
+	width: 500px;
+}
+
+.containerPost .champtextarea{
+	width: calc(100% - 140px);
+}
+/*###############################################################################################*/
+
+/*#########################################BOUTON################################################*/
+.button {
+	width: 140px;
+	height: 45px;
+
+	background-color: #fff;
+
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-weight: 550;
+
+	color: #264A9C;
+
+	border: none;
+	border-radius: 45px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+
+	transition: all 0.3s ease 0s;
+
+	cursor: pointer;
+}
+
+/*pour animation*/
+.button:hover {
+	background-color: #264A9C;
+	box-shadow: 0px 15px 20px rgba(38, 78, 156, 0.4);
+	color: #fff;
+	transform: translateY(-7px);
+}
+
+.buttonTweester{
+	vertical-align: bottom;
+	width: 110px;
+	height: 35px;
+	margin-left:10px;
+	margin-bottom:10px;
+}
+
+.buttonTweester:disabled{
+	color:#fff;
+	background-color:#D3D3D3;
+	cursor:initial;
+}
+
+/*retire les effets quand disabled*/
+.buttonTweester:disabled:hover{
+	background-color: #D3D3D3;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	color: #fff;
+	transform: none;
+}
+
+.buttonNavPanel{
+	position: absolute;
+	right:15px;
+	top:10px;
+}
+
+.addFriend{
+	position: absolute;
+	right:10px;
+	top:10px;
+	width:90px;
+}
+
+.addFriend:hover{
+	background-color:#fff;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.iconButton{
+	width:25px;
+	height:25px;
+}
+
+.supMessage{
+	float:right;
+	width:18px;
+	height:18px;
+	cursor:pointer;
+}
+
+.supUser{
+	color:red;
+	margin:10px;
+}
+
+.supUser:hover{
+	background-color:red;
+	box-shadow: 0px 15px 20px rgba(255, 0, 0, 0.4);
+}
+
+.like {
+	position: absolute;
+	bottom:0px;
+	right:25px;
+	cursor: pointer;
+	font-size: 10px;
+	height: 23px;
+	width: 23px;
+	background: url("/like.png") no-repeat;
+	background-size: contain;
+	color: white;
+}
+
+.like:hover {
+	background: url("/unlike.png") no-repeat;
+	background-size: contain;
+}
+
+.unlike {
+	position: absolute;
+	bottom:0px;
+	right:25px;
+	cursor: pointer;
+	font-size: 10px;
+	height: 23px;
+	width: 23px;
+	background: url("/unlike.png") no-repeat;
+	background-size: contain;
+	color: white;
+}
+
+.unlike:hover {
+	background: url("/like.png") no-repeat;
+	background-size: contain;
+}
+
+.replyButtonActiv {
+	transform: rotate(-180deg);
+}
+.replyButton {
+	position: absolute;
+	bottom:0px;
+	right:0px;
+	cursor:pointer;
+	height: 15px;
+	width: 15px;
+	transition: all 0.5s ease 0s;
+}
+.replyButton:hover {
+	transform: rotate(-180deg);
+}
+/*############################################################################################*/
+
+/*################################LISTE########################################################*/
+.listeHorizontal{
+	display:inline-block;
+	list-style-type: none;
+	padding:0px;
+	margin:5px 0px 5px 0px;
+}
+
+.item{
+	float:left;
+
+	width: 100px;
+	height: 15px;
+
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-weight: 550;
+	text-align:center;
+	padding:10px 0px 10px 0px;
+
+	color: #264A9C;
+
+	border-radius: 45px;
+
+	cursor: pointer;
+}
+
+.item:hover{
+	background-color: #264A9C;
+	color:#fff;
+}
+
+.separator{
+	float:left;
+	background-color:#264A9C;
+	width:1px;
+	margin:5px 10px 5px 10px;
+	height: 25px;
+}
+/*############################################################################################*/
+
+
+/*#########################################NAV################################################*/
+.navPanel{
+	position:fixed;
+	z-index: 10;
+	width:100%;
+	min-width:1400px;
+	padding-top:10px;
+	height:50px;
+	background-color:#fff;
+	margin-bottom:20px;
+	border-bottom: 1px solid rgba(21, 44, 85, 0.3);
+}
+
+.menu{
+	margin:auto;
+	max-width:1000px;
+	padding:0px;
+}
+
+.logo{
+	width:35px;
+	height:35px;
+	position:absolute;
+	left:50%;
+	margin: 5px 0px 5px -20px;
+}
+/*############################################################################################*/
+
+/*#########################################TEXTE################################################*/
+.erreur{
+	color:red;
+	margin:5px;
+}
+
+.date{
+	font-size:9px;
+	color:grey;
+}
+
+.titre{
+	color: #264A9C;
+}
+.centre{
+	text-align:center;
+	font-weight:bold;
+	margin:5px 0px 5px 0px;
+	color:#fff;
+}
+/*###############################################################################################*/
+
+/*#########################################CORPS################################################*/
+.corps{
+	display:table;
+	margin:auto;
+	padding-top:80px;
+	width:1000px;
+}
+
+.droite{
+	float:right;
+}
+
+.gauche{
+	float:left;
+}
+
+.contenerCentrale{
+	width:780px;
+}
+
+.styleDeBase{
+	background-color:#fff;
+	border-radius:10px;
+	border : 1px solid rgba(21, 44, 85, 0.3);
+	box-shadow:10px 10px 5px #C0C0C0;
+}
+
+.message{
+	width: calc(100% - 70px);
+	margin:15px;
+}
+
+.resumeProfil{
+	display: inline-flex;
+	align-items: center;
+	font-weight:600;
+	cursor:pointer;
+	color: #041335;
+}
+
+.imgProfil{
+	height: 40px;
+	width: 40px;
+	margin:10px;
+	border-radius:100%;
+}
+
+.post{
+	position:relative;
+	text-align:left;
+	margin:10px 20px 10px 20px;
+}
+
+.login, .register, .descriptionProfil{
+	text-align: center;
+}
+
+.wall, .descriptionProfil{
+	display:inline-block;
+	float:left;
+	min-width:340px;
+	width:778px;
+	padding: 20px 0px 20px 0px;
+	margin-bottom:20px;
+}
+
+.descriptionProfil .imgProfil{
+	height: 80px;
+	width: 80px;
+}
+
+.descriptionProfil{
+	position:relative;
+}
+
+.wall .barre{
+	width:100%;
+	margin:0px;
+}
+
+.profilgauche, .listeFriends{
+	margin:0px 20px 0px 0px;
+	float:left;
+	width:178px;
+	padding:0px 10px 10px 10px;
+}
+
+.barre , .barre100{
+	display:inline-block;
+	width:65%;
+	background-color:rgba(21, 44, 85, 0.3);
+	height:1px;
+	margin-bottom:10px;
+}
+
+.barre100{
+	width:100%;
+}
+
+.containerPost .wall{
+	width:100%;
+	margin:0px;
+	box-shadow:none;
+}
+
+.spacerVertical{
+	height:20px;
+}
+/*#############################################################################################*/
