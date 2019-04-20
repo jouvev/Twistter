@@ -19,7 +19,7 @@ public class User {
 				return ErrorJSON.serviceRefused(Errors.ERROR_INSERTION_SQL);
 		} 
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);} 
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 		return ErrorJSON.serviceAccepted();
 	}
 	
@@ -36,7 +36,7 @@ public class User {
 		} 
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);	}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 		return ErrorJSON.serviceAccepted();
 	}
 	
@@ -52,7 +52,7 @@ public class User {
 		} 
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);	}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 	}
 	
 	public static JSONObject searchUser(String pattern) {
@@ -63,7 +63,7 @@ public class User {
 		} 
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);	}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 	}
 	
 	public static JSONObject statsUser(String username) {
@@ -78,6 +78,6 @@ public class User {
 		} 
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);	}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 	}
 }

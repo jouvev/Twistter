@@ -18,11 +18,11 @@ public class Login extends HttpServlet {
 
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter ();
-
+		String ip = request.getRemoteAddr();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		out.println(Authentification.login(username, password));		
+		out.println(Authentification.login(username, password, ip));		
 	}
 }
 

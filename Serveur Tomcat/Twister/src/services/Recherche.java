@@ -24,6 +24,6 @@ public class Recherche {
 		}
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 	}
 }

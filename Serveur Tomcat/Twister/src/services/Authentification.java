@@ -9,7 +9,7 @@ import services.tools.*;
 
 public class Authentification {
 	
-	public static JSONObject login(String username, String password) {
+	public static JSONObject login(String username, String password, String ip) {
 		if (username == null || password == null) 
 			return ErrorJSON.serviceRefused(Errors.ERROR_ARGUMENT);
 		try {
@@ -19,7 +19,7 @@ public class Authentification {
 				return ErrorJSON.serviceRefused(Errors.ERROR_WRONG_PASSWORD);
 			int idUser = UserTools.getIdUser(username);
 			String key = Tools.generateKey(64);
-			if (! AuthentificationTools.insertKey(idUser, key))
+			if (! AuthentificationTools.insertKey(idUser, key, ip))
 				return ErrorJSON.serviceRefused(Errors.ERROR_INSERTION_SQL);
 			JSONObject ret = new JSONObject();
 			ret.put("id", idUser);
@@ -29,7 +29,7 @@ public class Authentification {
 		}
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 	}
 	
 	
@@ -46,7 +46,7 @@ public class Authentification {
 		}
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 		return ErrorJSON.serviceAccepted();
 	}
 }

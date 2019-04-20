@@ -140,7 +140,7 @@
 
   <filter>
     <filter-name>CorsFilter</filter-name>
-    <filter-class>services.tools.CORSFilter</filter-class>
+    <filter-class>services.servlets.CORSFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>CorsFilter</filter-name>

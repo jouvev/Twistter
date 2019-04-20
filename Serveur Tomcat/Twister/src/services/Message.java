@@ -27,7 +27,7 @@ public class Message {
 		}
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 		return ErrorJSON.serviceAccepted();
 	}
 	
@@ -41,7 +41,7 @@ public class Message {
 		}
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 		return ErrorJSON.serviceAccepted();
 	}
 	
@@ -67,7 +67,7 @@ public class Message {
 		}
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 	}
 	
 	public static JSONObject likeMessage(String key, String idMessage) {
@@ -81,7 +81,7 @@ public class Message {
 		}
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 		return ErrorJSON.serviceAccepted();
 	}
 	
@@ -92,6 +92,6 @@ public class Message {
 			return MapReduceTools.searchMessagesResults(pattern);
 		}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 	}
 }

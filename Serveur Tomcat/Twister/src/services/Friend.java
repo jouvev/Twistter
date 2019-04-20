@@ -27,7 +27,7 @@ public class Friend {
 		}
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 		return ErrorJSON.serviceAccepted();
 	}
 	
@@ -48,7 +48,7 @@ public class Friend {
 		}
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 		return ErrorJSON.serviceAccepted();
 	}
 	
@@ -63,7 +63,7 @@ public class Friend {
 		}
 		catch (SQLException e) {return ErrorJSON.serviceRefused(Errors.ERROR_SQL);}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
-		catch (Exception e) {return ErrorJSON.serviceRefused(Errors.ERROR);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
 	}
 	
 }

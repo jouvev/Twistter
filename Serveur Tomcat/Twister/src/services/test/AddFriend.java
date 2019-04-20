@@ -7,7 +7,7 @@ public class AddFriend {
 
 	public static void main(String[] args) {
 		
-		JSONObject o = Friend.addFriend("fN1w1JJYtYccaRrN6diUqg1ahUjEhOrKQ6S8ViObl67S3Soww5qN1iFTZIylkNvt", "test");
+		JSONObject o = Friend.addFriend("1", "test");
 		JSONObject o2 = Friend.addFriend(null, "Skitry");
 		
 		System.out.println(o.toString());

@@ -1,4 +1,5 @@
-package services.tools;
+package services.servlets;
+
 import java.io.IOException;
 
 import javax.servlet.Filter;
