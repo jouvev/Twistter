@@ -34,7 +34,7 @@ public class MySQL {
 		
 		else {
 			if (database==null) {
-				database=new MySQL("jdbc/db");
+				database = new MySQL("jdbc/db");
 			}
 			return(database.getConnection());
 		}
