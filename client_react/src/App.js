@@ -7,6 +7,7 @@ import PageLogin from './PageLogin';
 import PageRegister from './PageRegister';
 import PageProfil from './PageProfil';
 import PageResult from './PageResult';
+import PageParametre from './PageParametre';
 import PageRechercheAvance from './PageRechercheAvance';
 
 export default class MainPage extends React.Component{
@@ -24,6 +25,11 @@ export default class MainPage extends React.Component{
 		this.search=this.search.bind(this);
 		this.setProfil=this.setProfil.bind(this);
 		this.searchavance=this.searchavance.bind(this);
+		this.parametre=this.parametre.bind(this);
+	}
+	
+	parametre(){
+		this.setState({page:"parametre"});
 	}
 	
 	searchavance(){
@@ -91,7 +97,7 @@ export default class MainPage extends React.Component{
 
 		if(this.state.page === "profil"){
 			contenu=(
-				<PageProfil infos={this.state.infos} dequi={this.state.dequi} setProfil={this.setProfil} logout={this.setLogout}/>
+		<PageProfil infos={this.state.infos} dequi={this.state.dequi} setProfil={this.setProfil} logout={this.setLogout} parametre={this.parametre}/>
 			);
 		}
 
@@ -104,6 +110,12 @@ export default class MainPage extends React.Component{
 		if(this.state.page === "searchavance"){
 			contenu=(
 				<PageRechercheAvance search={this.search}/>
+			);
+		}
+		
+		if(this.state.page === "parametre"){
+			contenu=(
+				<PageParametre infos={this.state.infos}/>
 			);
 		}
 			

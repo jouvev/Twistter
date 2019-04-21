@@ -8,6 +8,7 @@ create table twister_user (
     root BOOLEAN,
     nbTwists int(16),
     nbLikes int(16),
+	image varchar(256),
     primary key (id),
     constraint unU unique(username),
     constraint unE unique(email)

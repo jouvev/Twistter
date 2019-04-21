@@ -4,7 +4,8 @@ import './index.css';
 import MainPage from './App';
 import * as serviceWorker from './serviceWorker';
 
-window.addressServer = 'http://vps578770.ovh.net:8080/Twistter';
+//window.addressServer = 'http://vps578770.ovh.net:8080/Twistter';
+window.addressServer = 'http://localhost:8080/Twistter';
 
 ReactDOM.render(<MainPage />, document.getElementById('root'));
 

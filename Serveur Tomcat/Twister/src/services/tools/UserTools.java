@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import bd.DBStatic;
 import bd.MySQL;
 
 public class UserTools {
@@ -236,6 +237,24 @@ public class UserTools {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+	public static String getImage(String username) throws SQLException, Exception {
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		Connection connexion =  MySQL.getMySQLConnection();
+		Statement lecture = connexion.createStatement();
+		
+		
+		String query="SELECT image FROM "+DBStatic.table_user+" WHERE username=\""+username+"\";";
+		ResultSet curseur = lecture.executeQuery(query);
+		
+		curseur.next();
+		
+		String res= curseur.getString("image");
+		
+		curseur.close();
+		lecture.close();
+		connexion.close();
+		
+		return res;
+	}	
 }

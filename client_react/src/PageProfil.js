@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import ResumeProfil from './ResumeProfil';
+import ResumeProfil, {ImageProfil} from './ResumeProfil';
 import Wall from './Wall';
 import './App.css';
 
@@ -20,7 +20,7 @@ export default class PageProfil extends React.Component{
 			<div className="corps">
 				<ListeFriends  infos={this.props.infos} username={this.state.dequi} setProfil={this.props.setProfil} />
 				<div className="gauche contenerCentrale">
-					<DescriptionProfil username={this.state.dequi} infos={this.props.infos} logout={this.props.logout}/>
+					<DescriptionProfil username={this.state.dequi} infos={this.props.infos} logout={this.props.logout} parametre={this.props.parametre}/>
 					<Wall infos={this.props.infos} setProfil={this.props.setProfil} dequi={this.state.dequi}/>
 				</div>
 			</div>
@@ -32,9 +32,12 @@ export default class PageProfil extends React.Component{
 class DescriptionProfil extends React.Component{
 	constructor(props){
 		super(props);
-		this.state = {photo:"/photo.png", name:"", firstName:"", username:"", email:"", error:"", listeAmis:[]};
-		this.getProfil(this.props.username);
+		this.state = {name:"", firstName:"", username:"", email:"", error:"", listeAmis:[]};
 		this.updateListAmis();
+	}
+	
+	componentDidMount(){
+		this.getProfil(this.props.username);
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -100,6 +103,12 @@ class DescriptionProfil extends React.Component{
 		if(this.state.error!==""){
 			error=<p className="erreur">{this.state.error}</p>
 		}
+		let parametre;
+		if(this.state.username === this.props.infos.username){
+			parametre=(
+				<img className="iconButton parametre" src="parametre.png" alt="" onClick={() => this.props.parametre()}/>
+			);
+		}
 		let friendButton;
 		if (this.state.username !== "" && this.state.username !== this.props.infos.username){
 			if(this.state.listeAmis.includes(this.state.username)){
@@ -117,7 +126,8 @@ class DescriptionProfil extends React.Component{
 			<div className="styleDeBase descriptionProfil">
 				{error}
 				{friendButton}
-				<img className="imgProfil" src={this.state.photo} alt="" /><br/>
+				{parametre}
+				<ImageProfil className="imgProfil" username={this.state.username} /><br/>
 				<span>{this.state.username}</span><br/>
 				<span>{this.state.firstName} {this.state.name}</span><br/>
 				<span>{this.state.email}</span><br/>

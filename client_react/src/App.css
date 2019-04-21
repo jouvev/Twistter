@@ -74,6 +74,7 @@ legend{
 }
 
 fieldset {
+	position:relative;
 	padding:5px 20px 5px 20px;
 	margin-bottom:10px;
 	border:0px;
@@ -83,6 +84,11 @@ fieldset {
 	width:95%;
 	margin:0px;
 	padding:0px 10px 0px 15px;
+}
+
+.formImageProfil{
+	box-shadow:none;
+	width:1000px;
 }
 /*###########################################################################*/
 
@@ -150,6 +156,13 @@ fieldset {
 
 .containerPost .champtextarea{
 	width: calc(100% - 140px);
+}
+
+.parcourirImage{
+	vertical-align:bottom;
+	margin-bottom:3px;
+	margin-left:20px;
+	cursor:pointer;
 }
 /*###############################################################################################*/
 
@@ -227,6 +240,7 @@ fieldset {
 .iconButton{
 	width:25px;
 	height:25px;
+	cursor:pointer;
 }
 
 .supMessage{
@@ -320,6 +334,23 @@ fieldset {
 
 .rechercheAvanceButton:hover{
 	transform: translateY(-7px);
+}
+
+.parametre{
+	position: absolute;
+	right:10px;
+	top:10px;
+	transition: all 0.3s ease 0s;
+}
+
+.parametre:hover{
+	transform: translateY(-7px);
+}
+
+.basDroit{
+	position:absolute;
+	right:10px;
+	bottom:8px;
 }
 /*############################################################################################*/
 
@@ -526,5 +557,10 @@ fieldset {
 
 .spacerVertical{
 	height:20px;
+}
+
+.imageParams{
+	height: 150px;
+	width: 150px;
 }
 /*#############################################################################################*/

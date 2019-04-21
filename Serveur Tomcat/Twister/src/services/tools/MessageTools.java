@@ -35,7 +35,6 @@ public class MessageTools {
 		MongoCollection<Document> coll = MongoDB.getCollection("posts");
 		Document d = createMessage(auteur, message, idMessage);
 		coll.insertOne(d);
-		MapReduceTools.runMapReduce();
 	}
 	
 	public static void deleteMessage(String idMessage) {
