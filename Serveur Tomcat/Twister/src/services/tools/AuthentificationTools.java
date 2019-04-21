@@ -13,19 +13,19 @@ import bd.MySQL;
 
 /**
  * @author Vincent
- * Classe relative à tout ce qui est authentification.
+ * Classe relative Ã  tout ce qui est authentification.
  * cad : login, logout, verif de password et session(key) 
  */
 public class AuthentificationTools {
 	
-	//limite de validité de la clé en millisecondes
+	//limite de validitÃ© de la clÃ© en millisecondes
 	private static final long TIME_LIMIT = 1000*60*15;//(15 minutes)
 	
 	
 	/**
 	 * @param username 
 	 * @param password
-	 * @return true si le mot de passe correspond à l'username, false sinon
+	 * @return true si le mot de passe correspond Ã  l'username, false sinon
 	 * @throws SQLException
 	 * @throws Exception 
 	 */
@@ -47,11 +47,11 @@ public class AuthentificationTools {
 	}
 
 	/**
-	 * Créer une session pour l'utilisateur et insert les infos dans la base
+	 * CrÃ©er une session pour l'utilisateur et insert les infos dans la base
 	 * @param idUser
 	 * @param key
 	 * @param ip
-	 * @return	true si l'insertion s'est bien passée, false sinon
+	 * @return	true si l'insertion s'est bien passÃ©e, false sinon
 	 * @throws SQLException
 	 * @throws Exception
 	 */
@@ -83,7 +83,7 @@ public class AuthentificationTools {
 	
 	/**
 	 * @param key
-	 * @return true si la clé est valide, false sinon
+	 * @return true si la clÃ© est valide, false sinon
 	 * @throws SQLException
 	 * @throws Exception
 	 */
@@ -92,7 +92,7 @@ public class AuthentificationTools {
 		Connection connexion =  MySQL.getMySQLConnection();
 		Statement lecture = connexion.createStatement();
 		
-		//recup la clé dans la base
+		//recup la clÃ© dans la base
 		String query="SELECT dateCreation, root, isValid FROM "+DBStatic.table_session+" WHERE keySession=\""+key+"\";";
 		ResultSet curseur = lecture.executeQuery(query);
 		
@@ -118,7 +118,7 @@ public class AuthentificationTools {
 		else
 			res = false;
 		
-		if(res==true) {//on refresh la date de validité
+		if(res==true) {//on refresh la date de validitÃ©
 			String query2="UPDATE "+DBStatic.table_session+" SET dateCreation=NOW() WHERE keySession='"+key+"';";
 			if(lecture.executeUpdate(query2)==0) res = false;//si bug
 		}
@@ -133,7 +133,7 @@ public class AuthentificationTools {
 	/**
 	 * Invalide la key dans la base
 	 * @param key
-	 * @return true si l'update s'est bien passée, false sinon 
+	 * @return true si l'update s'est bien passÃ©e, false sinon 
 	 * @throws SQLException
 	 * @throws Exception
 	 */

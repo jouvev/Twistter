@@ -24,7 +24,7 @@ public class UploadTools {
 			return false;
 		}
 		
-		/* Prépare les flux. */
+		/* PrÃ©pare les flux. */
 		BufferedInputStream entree = null;
 		BufferedOutputStream sortie = null;
 		String format = getFormat(part);
@@ -39,7 +39,7 @@ public class UploadTools {
 			sortie = new BufferedOutputStream( new FileOutputStream( new File( PATH + nomFichier ) ),
 					TAILLE_TAMPON );
 			/*
-			 * Lit le fichier reçu et écrit son contenu dans un fichier sur le
+			 * Lit le fichier reÃ§u et Ã©crit son contenu dans un fichier sur le
 			 * disque.
 			 */
 			byte[] tampon = new byte[TAILLE_TAMPON];
@@ -61,15 +61,15 @@ public class UploadTools {
 	}
 	
 	private static String getFormat(Part part) {
-		 /* Boucle sur chacun des paramètres de l'en-tête "content-disposition". */
+		 /* Boucle sur chacun des paramÃ¨tres de l'en-tÃªte "content-disposition". */
 	    for ( String contentDisposition : part.getHeader( "content-disposition" ).split( ";" ) ) {
-	    	/* Recherche de l'éventuelle présence du paramètre "filename". */
+	    	/* Recherche de l'Ã©ventuelle prÃ©sence du paramÃ¨tre "filename". */
 	        if ( contentDisposition.trim().startsWith("filename") ) {
-	            /* Si "filename" est présent, alors renvoi de sa valeur, c'est-à-dire l'extention du fichier de fichier. */
+	            /* Si "filename" est prÃ©sent, alors renvoi de sa valeur, c'est-Ã -dire l'extention du fichier de fichier. */
 	            return contentDisposition.substring( contentDisposition.indexOf( '.' ) + 1 ).trim().replace( "\"", "" );
 	        }
 	    }
-	    /* Et pour terminer, si rien n'a été trouvé... */
+	    /* Et pour terminer, si rien n'a Ã©tÃ© trouvÃ©... */
 	    return null;
 	}
 	

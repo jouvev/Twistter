@@ -72,7 +72,7 @@ public class MessageTools {
 				else
 					likesToRemove.put(idUser, 1);
 			}
-			//pour chaque message qu'on va supprimer, on enleve un twist à l'utilisateur qui l'avait écrit
+			//pour chaque message qu'on va supprimer, on enleve un twist Ã  l'utilisateur qui l'avait Ã©crit
 			String auteur = (String) d.get("auteur");
 			if (twistsToRemove.containsKey(auteur))
 				twistsToRemove.put(auteur, twistsToRemove.get(auteur) + 1);
@@ -82,7 +82,7 @@ public class MessageTools {
 			coll.deleteOne(query);
 		}
 		
-		//après avoir les dictionnaires des valeurs à retirer pour tout le monde, on les parcours pour tout supprimer
+		//aprÃ¨s avoir les dictionnaires des valeurs Ã  retirer pour tout le monde, on les parcours pour tout supprimer
 		for (Entry<Integer, Integer> couple : likesToRemove.entrySet()){
 			try {
 				String username = UserTools.getUsernameById(couple.getKey());

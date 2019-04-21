@@ -6,7 +6,7 @@ import org.json.JSONObject;
 public class ErrorJSON {
 	
 	/**
-	 * Construit un json à partir de l'erreur rencontrer pendant un service
+	 * Construit un json Ã  partir de l'erreur rencontrer pendant un service
 	 * @param erreur
 	 * @return le json de l'erreur
 	 */

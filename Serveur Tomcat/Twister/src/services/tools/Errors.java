@@ -24,7 +24,7 @@ public class Errors {
 	
 	
 	/**
-	 * Créer une erreur avec le code 1
+	 * CrÃ©er une erreur avec le code 1
 	 * @param message de l'erreur
 	 */
 	public Errors(String message){
@@ -33,7 +33,7 @@ public class Errors {
 	}
 	
 	/**
-	 * Sert à créer une variable Errors static
+	 * Sert Ã  crÃ©er une variable Errors static
 	 * @param message de l'erreur
 	 * @param code de l'erreur
 	 */

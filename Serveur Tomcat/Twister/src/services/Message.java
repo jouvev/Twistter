@@ -47,7 +47,7 @@ public class Message {
 	
 	public static JSONObject listMessages(String username, String idParent) {
 		try {
-			//afficher le mur général de l'application (juste les messages qui n'ont pas de parents... donc les messages racines)
+			//afficher le mur gÃ©nÃ©ral de l'application (juste les messages qui n'ont pas de parents... donc les messages racines)
 			if(username==null && idParent==null)
 				return MessageTools.listMessagesRacines();
 			
@@ -58,7 +58,7 @@ public class Message {
 				return MessageTools.listMessagesUser(username);
 			}
 			
-			//afficher la liste des réponses à un message (ceux qui ont pour parent: idMessage)
+			//afficher la liste des rÃ©ponses Ã  un message (ceux qui ont pour parent: idMessage)
 			else if (username==null && idParent!=null)
 				return MessageTools.listMessagesReponses(idParent);
 			
