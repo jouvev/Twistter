@@ -23,6 +23,7 @@ public class Tools {
 		return calendar.getTime();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static Date getDate(String date) {
 		/*format DD/MM/AAAA*/
 		String[] dateSep = date.split("/");
