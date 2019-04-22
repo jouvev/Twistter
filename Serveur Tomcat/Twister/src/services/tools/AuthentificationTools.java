@@ -116,7 +116,7 @@ public class AuthentificationTools {
 			invalidatingKey(key);//utile?
 		}
 		else
-			res = false;
+			res = true;
 		
 		if(res==true) {//on refresh la date de validité
 			String query2="UPDATE "+DBStatic.table_session+" SET dateCreation=NOW() WHERE keySession='"+key+"';";
