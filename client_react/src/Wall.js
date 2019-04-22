@@ -206,7 +206,12 @@ class Post extends React.Component{
 	}
 	
 	voirReponse(){
-		this.context.search([],[]);
+		const url = new URLSearchParams();
+		url.append('idMessage',this.state.idMessage);
+		axios.get(window.addressServer + '/message/conversation?'+url).then(reponse => {
+			this.context.search([],reponse.data["messages"]);
+		});
+		
 	}
 
 	render(){
