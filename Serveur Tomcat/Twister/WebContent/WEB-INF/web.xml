@@ -75,6 +75,10 @@
     <servlet-class>services.servlets.UserImage</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>Conversation</servlet-name>
+    <servlet-class>services.servlets.Conversation</servlet-class>
+  </servlet>
+  <servlet>
 	<servlet-name>Upload</servlet-name>
 	<servlet-class>services.servlets.Upload</servlet-class>
 	<multipart-config>
@@ -155,9 +159,14 @@
     <url-pattern>/user/image</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>Conversation</servlet-name>
+    <url-pattern>/message/conversation</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>Upload</servlet-name>
     <url-pattern>/upload</url-pattern>
   </servlet-mapping>
+  
 
 
   <filter>

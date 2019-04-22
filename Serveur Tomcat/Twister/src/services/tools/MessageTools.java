@@ -193,4 +193,23 @@ public class MessageTools {
 		Document query = new Document("$set", new Document("likes", likesList));
 		coll.updateOne(search, query);
 	}
+
+	public static List<Document> getConversation(String idMessage) {
+		List<Document > res = new ArrayList<>();
+		
+		MongoCollection<Document> coll = MongoDB.getCollection("posts");
+		MongoCursor<Document> cursor = null;
+		Document query = null;
+		Document dres = null;
+		String id = idMessage; 
+		do {
+			query = new Document("_id", new ObjectId(id));
+			cursor = coll.find(query).iterator();
+			if(cursor.hasNext()) dres = cursor.next();
+			res.add(0, dres);
+			id = dres.getString("parent");
+		}while(id!=null);
+		
+		return res;
+	}
 }

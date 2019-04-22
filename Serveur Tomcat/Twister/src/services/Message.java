@@ -1,7 +1,9 @@
 package services;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -90,6 +92,23 @@ public class Message {
 			return ErrorJSON.serviceRefused(Errors.ERROR_ARGUMENT);
 		try {
 			return MapReduceTools.searchMessagesResults(pattern);
+		}
+		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
+		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
+	}
+	
+	
+	/**
+	 * @return un json avec tous les message de la conversation au dessus de idMessage
+	 */
+	public static JSONObject getConversation(String idMessage) {
+		if (idMessage == null)
+			return ErrorJSON.serviceRefused(Errors.ERROR_ARGUMENT);
+		try {
+			List<Document> messages = MessageTools.getConversation(idMessage);
+			JSONObject res = new JSONObject();
+			res.put("messages", messages);
+			return res;
 		}
 		catch (JSONException e) {return ErrorJSON.serviceRefused(Errors.ERROR_JSON);}
 		catch (Exception e) {return ErrorJSON.serviceRefused(new Errors(e.getMessage()));}
