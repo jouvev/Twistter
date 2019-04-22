@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ResumeProfil, {ImageProfil} from './ResumeProfil';
+import {ContextConnection} from './ContextConnection';
 import Wall from './Wall';
 import './App.css';
 
@@ -18,26 +19,27 @@ export default class PageProfil extends React.Component{
 	render(){
 		return (
 			<div className="corps">
-				<ListeFriends  infos={this.props.infos} username={this.state.dequi} setProfil={this.props.setProfil} />
+				<ListeFriends username={this.state.dequi}/>
 				<div className="gauche contenerCentrale">
-					<DescriptionProfil username={this.state.dequi} infos={this.props.infos} logout={this.props.logout} parametre={this.props.parametre}/>
-					<Wall infos={this.props.infos} setProfil={this.props.setProfil} dequi={this.state.dequi}/>
+					<DescriptionProfil username={this.state.dequi}/>
+					<Wall dequi={this.state.dequi}/>
 				</div>
 			</div>
 		);
 	}
 }
+PageProfil.contextType=ContextConnection;//abonnement au context
 
 
 class DescriptionProfil extends React.Component{
 	constructor(props){
 		super(props);
-		this.state = {name:"", firstName:"", username:"", email:"", error:"", listeAmis:[]};
-		this.updateListAmis();
+		this.state = {name:"", firstName:"", username:"", email:"", error:"", listeAmis: []};
 	}
 	
 	componentDidMount(){
 		this.getProfil(this.props.username);
+		this.updateListAmis();
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -57,14 +59,14 @@ class DescriptionProfil extends React.Component{
 	}
 
 	updateListAmis(){
-		axios.get( window.addressServer + '/friend/list?username=' + this.props.infos.username).then(reponse => {
+		axios.get( window.addressServer + '/friend/list?username=' + this.context.infos.username).then(reponse => {
 			this.setState({listeAmis:reponse.data["Friends"]});
 		});
 	}
 
 	addFriend(){
 		const url = new URLSearchParams();
-		url.append('key',this.props.infos.key);
+		url.append('key',this.context.infos.key);
 		url.append('username',this.state.username);
 		axios.get(window.addressServer + '/friend/add?' + url).then(reponse => {
 			if(reponse.data["Code"]===undefined){
@@ -77,7 +79,7 @@ class DescriptionProfil extends React.Component{
 
 	deleteFriend(){
 		const url = new URLSearchParams();
-		url.append('key',this.props.infos.key);
+		url.append('key',this.context.infos.key);
 		url.append('username',this.state.username);
 		axios.get(window.addressServer + '/friend/delete?' + url).then(reponse => {
 			if(reponse.data["Code"]===undefined){
@@ -89,9 +91,9 @@ class DescriptionProfil extends React.Component{
 	}
 
 	deleteAccount(){
-		axios.get(window.addressServer + '/user/delete?key=' + this.props.infos.key).then(reponse => {
+		axios.get(window.addressServer + '/user/delete?key=' + this.context.infos.key).then(reponse => {
 			if(reponse.data["Code"]===undefined){
-				this.props.logout();
+				this.context.setLogout();
 			} else {
 				this.setState({error:reponse.data["Message"]});
 			}
@@ -104,13 +106,13 @@ class DescriptionProfil extends React.Component{
 			error=<p className="erreur">{this.state.error}</p>
 		}
 		let parametre;
-		if(this.state.username === this.props.infos.username){
+		if(this.state.username === this.context.infos.username){
 			parametre=(
-				<img className="iconButton parametre" src="parametre.png" alt="" onClick={() => this.props.parametre()}/>
+				<img className="iconButton parametre" src="parametre.png" alt="" onClick={() => this.context.parametre()}/>
 			);
 		}
 		let friendButton;
-		if (this.state.username !== "" && this.state.username !== this.props.infos.username){
+		if (this.state.username !== "" && this.state.username !== this.context.infos.username){
 			if(this.state.listeAmis.includes(this.state.username)){
 				friendButton = (<button className="button addFriend" onClick={() => this.deleteFriend()}><img className="iconButton" src="delete_friend_icon.png" alt="" /></button>); //ils sont amis
 			} else {
@@ -119,7 +121,7 @@ class DescriptionProfil extends React.Component{
 		}
 
 		let deleteButton;
-		if (this.state.username === this.props.infos.username){
+		if (this.state.username === this.context.infos.username){
 			deleteButton = (<button className="button supUser" onClick={() => this.deleteAccount()}>SUPPRIMER LE COMPTE</button>);
 		}
 		return (
@@ -136,6 +138,7 @@ class DescriptionProfil extends React.Component{
 		);
 	}
 }
+DescriptionProfil.contextType=ContextConnection;//abonnement au context
 
 
 
@@ -168,17 +171,19 @@ class ListeFriends extends React.Component{
 		return (
 			<div className="styleDeBase listeFriends">
 				{error}
-				<p >{this.props.infos.username===this.props.username ? 'Mes Amis :' : 'Ses Amis :'}</p>
-				{this.state.listeFriends.map((username, id) => <Friend key={id} username={username} setProfil={this.props.setProfil} />)}
+				<p >{this.context.infos.username===this.props.username ? 'Mes Amis :' : 'Ses Amis :'}</p>
+				{this.state.listeFriends.map((username, id) => <Friend key={id} username={username} setProfil={this.context.setProfil} />)}
 			</div>
 		);
 	}
 }
+ListeFriends.contextType=ContextConnection;//abonnement au context
 
 class Friend extends React.Component{
 	render(){
 		return (
-			<ResumeProfil username={this.props.username} setProfil={this.props.setProfil}/>
+			<ResumeProfil username={this.props.username}/>
 		);
 	}
 }
+Friend.contextType=ContextConnection;//abonnement au context

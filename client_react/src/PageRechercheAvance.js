@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {ContextConnection} from './ContextConnection';
 import './App.css';
 
 export default class PageRechercheAvance extends React.Component{
@@ -35,7 +36,7 @@ export default class PageRechercheAvance extends React.Component{
 		url.append('popularite',this.state.popularite);
 		
 		axios.get(window.addressServer + '/search?'+url).then(reponse => {
-				this.props.search([], reponse.data["messages"]);
+				this.context.search([], reponse.data["messages"]);
 		});
 		event.preventDefault();
   	}
@@ -65,3 +66,4 @@ export default class PageRechercheAvance extends React.Component{
 		);
 	}
 }
+PageRechercheAvance.contextType=ContextConnection;//abonnement au context

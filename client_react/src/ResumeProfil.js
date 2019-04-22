@@ -1,4 +1,5 @@
 import React from 'react';
+import {ContextConnection} from './ContextConnection';
 import './App.css';
 
 export default class ResumeProfil extends React.Component{
@@ -8,7 +9,7 @@ export default class ResumeProfil extends React.Component{
 	}
 
 	goToProfil(){
-		this.props.setProfil(this.props.username);
+		this.context.setProfil(this.props.username);
 	}
 
 	render(){
@@ -20,6 +21,8 @@ export default class ResumeProfil extends React.Component{
 		);
 	}
 }
+ResumeProfil.contextType=ContextConnection;//abonnement au context
+
 
 export class ImageProfil extends React.Component{
 	constructor(props){
@@ -44,3 +47,4 @@ export class ImageProfil extends React.Component{
 		);
 	}
 }
+ImageProfil.contextType=ContextConnection;//abonnement au context

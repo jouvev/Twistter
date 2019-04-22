@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {ContextConnection} from './ContextConnection';
 import './App.css';
 
 export default class NavigationPanel extends React.Component{
@@ -7,39 +8,41 @@ export default class NavigationPanel extends React.Component{
 		let contenu;
 		let menu;
 		let logo;
+		let context = this.context;
         //s'il n'est pas connecté
-		if(this.props.isConnected===false){
+		if(context.isConnected===false){
 			logo=(
-				<img className="logo" src="/logo.png" alt="" onClick={() => this.props.logout()}/>
+				<img className="logo" src="/logo.png" alt="" onClick={() => context.setLogout()}/>
 			);
 		  	contenu = (
 				<div>
-			  		<button className="button buttonNavPanel" onClick={()=>this.props.logout()}>Log in</button>
+			  		<button className="button buttonNavPanel" onClick={()=>context.setLogout()}>Log in</button>
 			  	</div>
 		  	);
 		}
         //s'il est connecté
 		else{
 			logo=(
-				<img className="logo" src="/logo.png" alt="" onClick={() => this.props.accueil()}/>
+				<img className="logo" src="/logo.png" alt="" onClick={() => context.accueil()}/>
 			);
 		    contenu = (
 				<div>
-			   		<button className="button buttonNavPanel" onClick={()=>this.props.logout()}>Log Out</button>
+			   		<button className="button buttonNavPanel" onClick={()=>context.setLogout()}>Log Out</button>
 			   	</div>
 		   	);
-			menu = <Menu accueil={this.props.accueil} setProfil={this.props.setProfil} search={this.props.search} searchavance={this.props.searchavance}/>;
+			menu = <Menu />;
 		}
 
-		if(this.props.page==="login"){
+		if(context.page==="login"){
 			contenu=(
 				<div>
-					<button className="button buttonNavPanel" onClick={()=>this.props.register()}>Sign up</button>
+					<button className="button buttonNavPanel" onClick={()=>context.register()}>Sign up</button>
 				</div>
 			);
 		}
 
 		return (
+			
 			<nav className="navPanel">
 				{logo}
 				{menu}
@@ -48,22 +51,25 @@ export default class NavigationPanel extends React.Component{
 		);
   	}
 }
+NavigationPanel.contextType=ContextConnection;//abonnement au context
 
 class Menu extends React.Component{
 	render(){
+		let context = this.context;
 		return (
 			<div className="menu">
 				<ul className="listeHorizontal">
-				<li className="item" onClick={() => this.props.accueil()}>Accueil</li>
+				<li className="item" onClick={() => context.accueil()}>Accueil</li>
 				<li className="separator"></li>
-				<li className="item" onClick={() => this.props.setProfil()}>Profil</li>
+				<li className="item" onClick={() => context.setProfil()}>Profil</li>
 				</ul>
-				<span className="rechercheAvanceButton" description="Recherche Avancée"><img  className="iconButton" src="loupe.png" onClick={() => this.props.searchavance()} alt=""/></span>
-				<SearchBar search={this.props.search}/>
+				<span className="rechercheAvanceButton" description="Recherche Avancée"><img  className="iconButton" src="loupe.png" onClick={() => context.searchavance()} alt=""/></span>
+				<SearchBar />
 			</div>
 		);
   	}
 }
+Menu.contextType=ContextConnection;//abonnement au context
 
 
 class SearchBar extends React.Component{
@@ -72,6 +78,7 @@ class SearchBar extends React.Component{
 		this.state={pattern:""};
 		this.onSubmit=this.onSubmit.bind(this);
 		this.onChangeSearch=this.onChangeSearch.bind(this);
+		
 	}
 
 	onSubmit(event){
@@ -82,7 +89,7 @@ class SearchBar extends React.Component{
             axios.get(window.addressServer + '/user/search?'+url),
             axios.get(window.addressServer + '/message/search?'+url)
         ]).then(axios.spread((reponseUsers, reponseMessages) => {
-            this.props.search(reponseUsers.data["Users"], reponseMessages.data["Messages"])
+            this.context.search(reponseUsers.data["Users"], reponseMessages.data["Messages"])
         }))
 
 		event.preventDefault();
@@ -100,3 +107,4 @@ class SearchBar extends React.Component{
 		);
 	}
 }
+SearchBar.contextType=ContextConnection;//abonnement au context

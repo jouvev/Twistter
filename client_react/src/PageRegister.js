@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {ContextConnection} from './ContextConnection';
 import './App.css';
 
 export default class PageRegister extends React.Component{
@@ -58,7 +59,7 @@ export default class PageRegister extends React.Component{
 				//on créé l'utilisateur
 				axios.get(window.addressServer + '/user/create?'+url).then(reponse => {
 					if(reponse.data["Code"] === undefined){
-						this.props.logout();
+						this.context.setLogout();
 					}else{
 						this.setState({error:reponse.data["Message"]});
 					}
@@ -99,3 +100,4 @@ export default class PageRegister extends React.Component{
 		);
 	}
 }
+PageRegister.contextType=ContextConnection;//abonnement au context

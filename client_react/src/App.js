@@ -9,15 +9,17 @@ import PageProfil from './PageProfil';
 import PageResult from './PageResult';
 import PageParametre from './PageParametre';
 import PageRechercheAvance from './PageRechercheAvance';
+import {ContextConnection} from './ContextConnection';
 
 export default class MainPage extends React.Component{
 	constructor(props){
 		super(props);
 		if(sessionStorage.getItem('isConnected')){
-			this.state = {isConnected: true, page:"wall", infos : {key:sessionStorage.getItem('key'), id:sessionStorage.getItem('id'), username:sessionStorage.getItem('username')}};
+			this.state = {isConnected: true, page:"wall", infos : {key:sessionStorage.getItem('key'), id:parseInt(sessionStorage.getItem('id'),10), username:sessionStorage.getItem('username')}};
 		}else{
-			this.state = {isConnected:false, page:"login"};
+			this.state = {isConnected:false, page:"login" };
 		}
+		
 		this.getConnected=this.getConnected.bind(this);
 		this.setLogout=this.setLogout.bind(this);
 		this.register=this.register.bind(this);
@@ -26,6 +28,19 @@ export default class MainPage extends React.Component{
 		this.setProfil=this.setProfil.bind(this);
 		this.searchavance=this.searchavance.bind(this);
 		this.parametre=this.parametre.bind(this);
+		
+		let func = {
+			getConnected: this.getConnected,
+			setLogout : this.setLogout,
+			register : this.register,
+			accueil : this.accueil,
+			search : this.search,
+			setProfil : this.setProfil,
+			searchavance : this.searchavance,
+			parametre : this.parametre
+		};
+		
+		this.state = Object.assign({}, this.state, func); //concat toutes les fonctions
 	}
 	
 	parametre(){
@@ -37,14 +52,17 @@ export default class MainPage extends React.Component{
 	}
 
 	search(dataUsers, dataMessages){
-		this.setState({page:"result", users:dataUsers, messages:dataMessages});
+		this.listeUsers = dataUsers;
+		this.listeMessages = dataMessages;
+		this.setState({page:"result"});	
 	}
 
 	setProfil(username){
 		if(username===undefined){
 			username=this.state.infos.username;
 		}
-		this.setState({page:"profil", dequi:username});
+		this.setState({page:"profil"});
+		this.dequi=username;
 	}
 
 	accueil(){
@@ -79,52 +97,52 @@ export default class MainPage extends React.Component{
 
 		if(this.state.page === "login"){
 	  		contenu=(
-	  			<PageLogin register={this.register} login={this.getConnected} />
+	  			<PageLogin />
 	  		);
 		}
 
 		if(this.state.page === "register"){
 		  	contenu=(
-		  		<PageRegister logout={this.setLogout}/>
+		  		<PageRegister />
 		  	);
 		}
 
 		if(this.state.page === "wall"){
 			contenu=(
-				<PageWall infos={this.state.infos} setProfil={this.setProfil}/>
+				<PageWall />
 			);
 		}
 
 		if(this.state.page === "profil"){
 			contenu=(
-		<PageProfil infos={this.state.infos} dequi={this.state.dequi} setProfil={this.setProfil} logout={this.setLogout} parametre={this.parametre}/>
+				<PageProfil dequi={this.dequi}/>
 			);
 		}
 
 		if(this.state.page === "result"){
 			contenu=(
-				<PageResult users={this.state.users} setProfil={this.setProfil} messages={this.state.messages}/>
+				<PageResult users={this.listeUsers} messages={this.listeMessages}/>
 			);
 		}
 			
 		if(this.state.page === "searchavance"){
 			contenu=(
-				<PageRechercheAvance search={this.search}/>
+				<PageRechercheAvance />
 			);
 		}
 		
 		if(this.state.page === "parametre"){
 			contenu=(
-				<PageParametre infos={this.state.infos}/>
+				<PageParametre />
 			);
 		}
 			
 		return (
 			<div>
-				<NavigationPanel login={this.getConnected} logout={this.setLogout} isConnected={this.state.isConnected}
-					page={this.state.page} register={this.register} setProfil={this.setProfil} accueil={this.accueil} search={this.search}
-					searchavance={this.searchavance}/>
-				{contenu}
+				<ContextConnection.Provider value={this.state}>
+					<NavigationPanel />
+					{contenu}
+				</ContextConnection.Provider>
 			</div>
 		);
 	}

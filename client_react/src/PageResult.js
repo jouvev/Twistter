@@ -1,6 +1,7 @@
 import React from 'react';
 import ResumeProfil from './ResumeProfil';
 import ListeTweests from './ListeTweests';
+import {ContextConnection} from './ContextConnection';
 import './App.css';
 
 export default class PageResult extends React.Component{
@@ -12,14 +13,14 @@ export default class PageResult extends React.Component{
 				<div className="styleDeBase">
 					{this.props.users.map((username,id)=>
 						<div key={id}>
-							<ResumeProfil  username={username} setProfil={this.props.setProfil}/>
+							<ResumeProfil  username={username} />
 						</div>
 					)}
 				</div>);
 		}
 		if(this.props.messages.length!==0){
 			messages = (
-				<ListeTweests setProfil={this.props.setProfil} messages={this.props.messages} />
+				<ListeTweests setProfil={this.context.setProfil} messages={this.props.messages} />
 			);
 		}
 		return (
@@ -31,3 +32,4 @@ export default class PageResult extends React.Component{
 		);
 	}
 }
+PageResult.contextType=ContextConnection;//abonnement au context

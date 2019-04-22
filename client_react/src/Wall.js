@@ -1,17 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 import ResumeProfil from './ResumeProfil';
+import {ContextConnection} from './ContextConnection';
 import './App.css';
 
 export default class Wall extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={listeMessages:[],error:"",dequi:this.props.dequi};
+		
+		this.update=this.update.bind(this);
+	}
+	
+	componentDidMount(){
 		if (this.props.idParent !== undefined)
 			this.getReplies();
 		else
 			this.getMessages(this.state.dequi);
-		this.update=this.update.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -46,27 +51,32 @@ export default class Wall extends React.Component{
 	}
 
 	update(){
-		if (this.props.idParent !== undefined)
+		if (this.props.updateStats !== undefined)
+			this.props.updateStats();
+		if (this.props.idParent !== undefined){
+			this.props.updatenbrep();//fonction doit etre donner si idparent existe
 			this.getReplies();
+		}
 		else
 			this.getMessages(this.state.dequi);
 	}
 
 	render(){
 		let error;
+		let boolTweester = (this.state.dequi===undefined || (this.state.dequi === this.context.infos.username));//bool pour savoir si on affiche le formTweester
 		if(this.state.error!==undefined){
 			error=<p className="erreur">{this.state.error}</p>
 		}
 		return (
 			<div className="styleDeBase wall">
-				<FormTweester infos={this.props.infos} update={this.update} idParent={this.props.idParent} updateStats={this.props.updateStats}/>
+			{boolTweester && <FormTweester idParent={this.props.idParent} update={this.update}/>}
 				{error}
 				{
 					this.state.listeMessages.map((message,id)=>
 						<div className="containerPost" key={id}>
-							<Post infos={this.props.infos} id={message._id} contenu={message.message}
-									auteur={message.auteur} date={message.date} setProfil={this.props.setProfil}
-									update={this.update} likes={message.likes} updateStats={this.props.updateStats}/>
+							<Post  id={message._id} contenu={message.message}
+									auteur={message.auteur} date={message.date} 
+									update={this.update} likes={message.likes} updateStats={this.props.updateStats} estReponse={message.parent!==null}/>
 							<div className="barre"></div>
 						</div>
 					)
@@ -75,6 +85,7 @@ export default class Wall extends React.Component{
 		);
   }
 }
+Wall.contextType=ContextConnection;//abonnement au context
 
 class FormTweester extends React.Component{
 	constructor(props){
@@ -91,7 +102,7 @@ class FormTweester extends React.Component{
 	onSubmit(event){
 		const url = new URLSearchParams();
 		url.append('message',this.state.message);
-		url.append('key',this.props.infos.key);
+		url.append('key',this.context.infos.key);
 		if (this.props.idParent !== undefined)
 			url.append('idMessage',this.props.idParent);
 
@@ -116,38 +127,46 @@ class FormTweester extends React.Component{
 		);
 	}
 }
+FormTweester.contextType=ContextConnection;//abonnement au context
 
 class Post extends React.Component{
 	constructor(props){
 		super(props);
-		this.state = {listeLikes:this.props.likes, replies:"hidden"};
+		this.state = {idMessage:this.props.id, listeLikes:this.props.likes, replies:"hidden" , nbrep:0, estReponse:this.props.estReponse};
 
 		this.supprimerMessage=this.supprimerMessage.bind(this);
 		this.likeMessage=this.likeMessage.bind(this);
+		this.updatenbrep=this.updatenbrep.bind(this);
+		this.voirReponse=this.voirReponse.bind(this);
 	}
 
+	componentDidMount(){
+		this.updatenbrep();
+	}
+	
 	componentWillReceiveProps(nextProps){
-		if(nextProps.id !== this.props.id){
-			this.setState({listeLikes:nextProps.likes});
+		if(nextProps.id !== this.props.id){//quand on ajoute un message c'est ici qu'on doit bien faire l'update
+			this.setState({idMessage:nextProps.id, listeLikes:nextProps.likes, replies:"hidden", estReponse: nextProps.estReponse});
+			this.updatenbrep(nextProps.id);
 		}
 	}
 
 	updateListeLikes(){
 		//si il est dedans
-		if (this.state.listeLikes.includes(this.props.infos.id)){
-			this.state.listeLikes.pop(this.props.infos.id);
+		if (this.state.listeLikes.includes(this.context.infos.id)){
+			this.state.listeLikes.pop(this.context.infos.id);
 			this.setState({listeLikes: this.state.listeLikes})
 		}
 		else {
-			this.state.listeLikes.push(this.props.infos.id);
+			this.state.listeLikes.push(this.context.infos.id);
 			this.setState({listeLikes: this.state.listeLikes})
 		}
 	}
 
 	likeMessage(){
 		const url = new URLSearchParams();
-		url.append('key',this.props.infos.key);
-		url.append('idMessage',this.props.id);
+		url.append('key',this.context.infos.key);
+		url.append('idMessage',this.state.idMessage);
 		axios.get(window.addressServer + '/message/like?'+url).then(reponse => {
 			if (this.props.updateStats !== undefined)
 				this.props.updateStats();
@@ -157,12 +176,24 @@ class Post extends React.Component{
 
 	supprimerMessage(){
 		const url = new URLSearchParams();
-		url.append('idMessage',this.props.id);
-		url.append('key',this.props.infos.key);
+		url.append('idMessage',this.state.idMessage);
+		url.append('key',this.context.infos.key);
 		axios.get(window.addressServer + '/message/delete?'+url).then(reponse => {
 			if (this.props.updateStats !== undefined)
 				this.props.updateStats();
 			this.props.update();
+		});
+	}
+	
+	updatenbrep(id){
+		if(id===undefined)
+			id=this.state.idMessage;
+		axios.get(window.addressServer + '/message/list?idParent='+id).then(reponse => {
+			if(reponse.data["Code"]===undefined){
+				this.setState({nbrep:reponse.data['Messages'].length});
+			}else{
+				this.setState({error:reponse.data["Message"]});
+			}
 		});
 	}
 
@@ -173,30 +204,40 @@ class Post extends React.Component{
 	hideReplies(){
 		this.setState({replies:"hidden"});
 	}
+	
+	voirReponse(){
+		this.context.search([],[]);
+	}
 
 	render(){
 		let supprime;
-		if(this.props.auteur === this.props.infos.username){
+		if(this.props.auteur === this.context.infos.username){
 			supprime=<img className="supMessage" src="delete_message.png" onClick={this.supprimerMessage} alt="" />
 		}
 		let likeStatus = "like";
-		if (this.state.listeLikes.includes(this.props.infos.id))
+		if (this.state.listeLikes.includes(this.context.infos.id)){
 			likeStatus = "unlike";
-
+		}
+		
 		let replies;
 		if (this.state.replies === 'visible')
-			replies = (<Wall infos={this.props.infos} setProfil={this.props.setProfil} idParent={this.props.id} updateStats={this.props.updateStats}/>);
+			replies = (<Wall idParent={this.state.idMessage} updateStats={this.props.updateStats} updatenbrep={this.updatenbrep}/>);
 
 		return (
 			<div className="post">
 				{supprime}
-				<ResumeProfil username={this.props.auteur} setProfil={this.props.setProfil}/>
-				<p className="date">{this.props.date}</p>
+				<ResumeProfil username={this.props.auteur}/>
+				
+				<p className="date">{this.props.date}{this.state.estReponse && <span className="estReponse" onClick={this.voirReponse}> - est une réponse</span>}</p>
 				<p className="message">{this.props.contenu}</p>
 				<div className={likeStatus} onClick={() => this.likeMessage()}><p className="centre">{this.state.listeLikes.length}</p></div>
-				<img className={"iconButton replyButton "+ (this.state.replies === 'visible' ? "replyButtonActiv" : "")} alt="" src="fleche.png" onClick={() => (this.state.replies === 'hidden' ? this.showReplies() : this.hideReplies())}/>
+				<div className="compteurRep">
+					<img className={"iconButton replyButton "+ (this.state.replies === 'visible' ? "replyButtonActiv" : "")} alt="" src="fleche.png" onClick={() => (this.state.replies === 'hidden' ? this.showReplies() : this.hideReplies())}/>
+					{this.state.nbrep}
+				</div>
 				{replies}
 			</div>
 		);
 	}
 }
+Post.contextType=ContextConnection;//abonnement au context

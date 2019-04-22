@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import ResumeProfil, {ImageProfil} from './ResumeProfil';
+import {ImageProfil} from './ResumeProfil';
+import {ContextConnection} from './ContextConnection';
 import './App.css';
 
 export default class PageParametre extends React.Component{
@@ -14,7 +15,7 @@ export default class PageParametre extends React.Component{
 		let img=this.state.file;
 		const formData = new FormData();
 		formData.append('image',img)
-		formData.append('key',this.props.infos.key);
+		formData.append('key',this.context.infos.key);
 		const config = {
 			headers: {
             'content-type': 'multipart/form-data'
@@ -35,7 +36,7 @@ export default class PageParametre extends React.Component{
 					<form className="formImageProfil" onSubmit={this.onSubmit}>
 						<fieldset>
 							<legend>Image de profil</legend>
-							<ImageProfil className="imageParams" username={this.props.infos.username} />
+							<ImageProfil className="imageParams" username={this.context.infos.username} />
 							<input className="parcourirImage" type="file" onChange={this.onChange} accept="image/png"/>
 							<input className="button basDroit" type="submit" value="Envoyer"/>
 						</fieldset>
@@ -45,3 +46,4 @@ export default class PageParametre extends React.Component{
 		);
 	}
 }
+PageParametre.contextType=ContextConnection;//abonnement au context

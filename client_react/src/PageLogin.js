@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {ContextConnection} from './ContextConnection';
 import './App.css';
 
 export default class PageLogin extends React.Component{
@@ -29,13 +30,13 @@ export default class PageLogin extends React.Component{
 			url.append('username',this.state.username);
 			url.append('password',this.state.password);
 			
-			axios.get(window.addressServer + '/authentification/login?'+url).then(reponse => {
+			axios.get(window.addressServer + '/authentification/login?'+url).then(reponse => {	
 				if(reponse.data["Code"]===undefined){
-					this.props.login(reponse.data["key"],reponse.data["id"],reponse.data["username"]);
+					this.context.getConnected(reponse.data["key"],reponse.data["id"],reponse.data["username"]);
 				}else{
-					this.setState({error:reponse.data["Message"]});
+					this.setState({error : reponse.data["Message"]});
 				}
-			});
+			}).catch(rep => {console.log(rep);} );
 		}
 		event.preventDefault();
   	}
@@ -54,7 +55,7 @@ export default class PageLogin extends React.Component{
 						<fieldset>
 							<input className="champtext" type="text" value={this.state.username} onChange={this.onChangeUsername} placeholder="Username" autoFocus/><br/>
 							<input className="champtext" type="password" value={this.state.password} onChange={this.onChangePassword} placeholder="Password"/> <br/>
-							<p className="link" onClick={()=>this.props.register()} >Pas encore de compte ?</p>
+							<p className="link" onClick={()=>this.context.register()} >Pas encore de compte ?</p>
 						</fieldset>
 						<input className="button" type="submit" value="Se connecter" />
 					</form>
@@ -63,3 +64,4 @@ export default class PageLogin extends React.Component{
 		);
 	}
 }
+PageLogin.contextType=ContextConnection;//abonnement au context

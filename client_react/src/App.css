@@ -263,7 +263,7 @@ fieldset {
 .like {
 	position: absolute;
 	bottom:0px;
-	right:25px;
+	right:35px;
 	cursor: pointer;
 	font-size: 10px;
 	height: 23px;
@@ -281,7 +281,7 @@ fieldset {
 .unlike {
 	position: absolute;
 	bottom:0px;
-	right:25px;
+	right:35px;
 	cursor: pointer;
 	font-size: 10px;
 	height: 23px;
@@ -302,7 +302,7 @@ fieldset {
 .replyButton {
 	position: absolute;
 	bottom:0px;
-	right:0px;
+	right:13px;
 	cursor:pointer;
 	height: 15px;
 	width: 15px;
@@ -310,6 +310,12 @@ fieldset {
 }
 .replyButton:hover {
 	transform: rotate(-180deg);
+}
+.compteurRep{/*fait parti du replybutton*/
+	position: absolute;
+	bottom:0px;
+	right:0px;
+	font-size:12px;
 }
 
 .rechercheAvanceButton{
@@ -351,6 +357,12 @@ fieldset {
 	position:absolute;
 	right:10px;
 	bottom:8px;
+}
+
+.estReponse{
+	font-size:12px;
+	color:grey;
+	cursor:pointer;
 }
 /*############################################################################################*/
 
@@ -434,7 +446,7 @@ fieldset {
 }
 
 .date{
-	font-size:9px;
+	font-size:10px;
 	color:grey;
 }
 
