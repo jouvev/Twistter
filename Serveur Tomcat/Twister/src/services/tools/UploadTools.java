@@ -32,7 +32,7 @@ public class UploadTools {
 		if( format == null || !(format.equals("png")))
 			return false;
 		String nomFichier = "profil_"+username+"."+format;
-		changerImageDeProfil(username, nomFichier);
+		changerImageDeProfil(username, PATH + nomFichier);
 		try {
 			/* Ouvre les flux. */
 			entree = new BufferedInputStream( part.getInputStream(), TAILLE_TAMPON );
