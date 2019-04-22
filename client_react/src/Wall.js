@@ -107,8 +107,6 @@ class FormTweester extends React.Component{
 			url.append('idMessage',this.props.idParent);
 
 		axios.get(window.addressServer + '/message/add?'+url).then(reponse => {
-			if (this.props.updateStats !== undefined)
-				this.props.updateStats();
 			this.props.update();
 			this.setState({message:""});
 		});
@@ -168,8 +166,7 @@ class Post extends React.Component{
 		url.append('key',this.context.infos.key);
 		url.append('idMessage',this.state.idMessage);
 		axios.get(window.addressServer + '/message/like?'+url).then(reponse => {
-			if (this.props.updateStats !== undefined)
-				this.props.updateStats();
+			this.props.update();
 			this.updateListeLikes();
 		});
 	}
@@ -179,8 +176,6 @@ class Post extends React.Component{
 		url.append('idMessage',this.state.idMessage);
 		url.append('key',this.context.infos.key);
 		axios.get(window.addressServer + '/message/delete?'+url).then(reponse => {
-			if (this.props.updateStats !== undefined)
-				this.props.updateStats();
 			this.props.update();
 		});
 	}
