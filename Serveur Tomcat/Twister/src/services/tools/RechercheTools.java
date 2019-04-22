@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -27,7 +25,7 @@ public class RechercheTools {
 		//liste qui contient les utilisateurs populaire
 		List<String> usersPopulaire = new ArrayList<>();
 		
-		String query="SELECT u.username as user FROM twister_user u WHERE (SELECT count(*) from twister_friend f WHERE u.id=f.idUser1)>="+popularite+";";
+		String query="SELECT u.username as user FROM twister_user u WHERE (SELECT count(*) from twister_friend f WHERE u.id=f.idUser2)>="+popularite+";";
 		ResultSet curseur = lecture.executeQuery(query);
 		
 		while(curseur.next()) {
