@@ -5,7 +5,7 @@ public class DBStatic {
 	public static final String mysql_host = "localhost:3306";
 	public static final String mysql_username = "root";
 	public static final String mysql_password = "q96p{+DA3";
-	public static final boolean mysql_pooling = true;
+	public static final boolean mysql_pooling = false;
 	public static final String mysql_db = "twister";
 		//tables
 	public static final String table_user = "twister_user";
